@@ -4,57 +4,90 @@
 void controlLed(BLEDevice peripheral);
 
 const char* UUID = "19b10000-e8f2-537e-4f6c-d104768a1214";
-	
+
+const pin_size_t ButtonLeftPin = 6;
+const pin_size_t ButtonRightPin = 5;
+
+static void initLed(void);
+static void setLedOn(void);
+static void setLedOff(void);
+
+static void initButtons(void);
+static boolean buttonLeftPressed(void);
+static boolean buttonRightPressed(void);
+
 void setup(void){
-	Serial.begin(9600);
-	while(!Serial);
-	
+	initLed();
+	initButtons();
 	BLE.begin();
-	BLE.scanForUuid(UUID);
 }
 
-void loop(void) {
+void loop(void){
 	BLEDevice peripheral = BLE.available();
 
 	if(peripheral) {
-		Serial.println(peripheral.localName());
 		if(peripheral.localName() != "LED") {
 			return;
 		}
 		BLE.stopScan();
-		controlLed(peripheral);
 
-		// peripheral disconnected, start scanning again => so hässlich!!!
+		if(!peripheral.connect()){
+			return;
+		}
+
+		if(!peripheral.discoverAttributes()) {
+			peripheral.disconnect();
+			return;
+		}
+
+		BLECharacteristic ledCharacteristic = peripheral.characteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
+
+		if(!ledCharacteristic) {
+			peripheral.disconnect();
+			return;
+		}
+		else if(!ledCharacteristic.canWrite()) {
+			peripheral.disconnect();
+			return;
+		}
+
+		while(peripheral.connected()) {
+			if(buttonLeftPressed()){
+				setLedOn();
+				ledCharacteristic.writeValue((byte)0x01);
+			}
+			else if(buttonRightPressed()){
+				setLedOff();
+				ledCharacteristic.writeValue((byte)0x00);
+			}
+		}
+	}
+	else{
 		BLE.scanForUuid(UUID);
 	}
 }
 
-void controlLed(BLEDevice peripheral) {
+static void initLed(void){
+	pinMode(LED_BUILTIN, OUTPUT);
+}
 
-	if(!peripheral.connect()){
-		return;
-	}
+static void setLedOn(void){
+	digitalWrite(LED_BUILTIN, HIGH);	
+}
 
-	if(!peripheral.discoverAttributes()) {
-		peripheral.disconnect();
-		return;
-	}
+static void setLedOff(void){
+	digitalWrite(LED_BUILTIN, LOW);
+}
 
-	BLECharacteristic ledCharacteristic = peripheral.characteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
+static void initButtons(void){
+	pinMode(ButtonLeftPin, INPUT_PULLUP);
+	pinMode(ButtonRightPin, INPUT_PULLUP);
+}
 
-	if(!ledCharacteristic) {
-		peripheral.disconnect();
-		return;
-	}
-	else if(!ledCharacteristic.canWrite()) {
-		peripheral.disconnect();
-		return;
-	}
+static boolean buttonLeftPressed(void){
+	return digitalRead(ButtonLeftPin) == LOW;
+}
 
-	while(peripheral.connected()) {
-		ledCharacteristic.writeValue((byte)0x01);
-		delay(500);
-		ledCharacteristic.writeValue((byte)0x00);
-		delay(1000);
-	}
+static boolean buttonRightPressed(void){
+	return digitalRead(ButtonRightPin) == LOW;
 }
