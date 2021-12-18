@@ -1,20 +1,16 @@
 #include <Arduino.h>
 #include <ArduinoBLE.h>
 
-void controlLed(BLEDevice peripheral);
+#include "led.h"
 
 const char* UUID = "19b10000-e8f2-537e-4f6c-d104768a1214";
 
 const pin_size_t ButtonLeftPin = 6;
 const pin_size_t ButtonRightPin = 5;
 
-static void initLed(void);
-static void setLedOn(void);
-static void setLedOff(void);
-
 static void initButtons(void);
-static boolean buttonLeftPressed(void);
-static boolean buttonRightPressed(void);
+static bool buttonLeftPressed(void);
+static bool buttonRightPressed(void);
 
 void setup(void){
 	initLed();
@@ -54,11 +50,11 @@ void loop(void){
 		while(peripheral.connected()) {
 			if(buttonLeftPressed()){
 				setLedOn();
-				ledCharacteristic.writeValue((byte)0x01);
+				ledCharacteristic.writeValue((uint8_t)0x01);
 			}
 			else if(buttonRightPressed()){
 				setLedOff();
-				ledCharacteristic.writeValue((byte)0x00);
+				ledCharacteristic.writeValue((uint8_t)0x00);
 			}
 		}
 	}
@@ -67,27 +63,15 @@ void loop(void){
 	}
 }
 
-static void initLed(void){
-	pinMode(LED_BUILTIN, OUTPUT);
-}
-
-static void setLedOn(void){
-	digitalWrite(LED_BUILTIN, HIGH);	
-}
-
-static void setLedOff(void){
-	digitalWrite(LED_BUILTIN, LOW);
-}
-
 static void initButtons(void){
 	pinMode(ButtonLeftPin, INPUT_PULLUP);
 	pinMode(ButtonRightPin, INPUT_PULLUP);
 }
 
-static boolean buttonLeftPressed(void){
+static bool buttonLeftPressed(void){
 	return digitalRead(ButtonLeftPin) == LOW;
 }
 
-static boolean buttonRightPressed(void){
+static bool buttonRightPressed(void){
 	return digitalRead(ButtonRightPin) == LOW;
 }
