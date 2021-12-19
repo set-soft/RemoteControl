@@ -2,15 +2,9 @@
 #include <ArduinoBLE.h>
 
 #include "led.h"
+#include "buttons.h"
 
 const char* UUID = "19b10000-e8f2-537e-4f6c-d104768a1214";
-
-const pin_size_t ButtonLeftPin = 6;
-const pin_size_t ButtonRightPin = 5;
-
-static void initButtons(void);
-static bool buttonLeftPressed(void);
-static bool buttonRightPressed(void);
 
 void setup(void){
 	initLed();
@@ -61,17 +55,4 @@ void loop(void){
 	else{
 		BLE.scanForUuid(UUID);
 	}
-}
-
-static void initButtons(void){
-	pinMode(ButtonLeftPin, INPUT_PULLUP);
-	pinMode(ButtonRightPin, INPUT_PULLUP);
-}
-
-static bool buttonLeftPressed(void){
-	return digitalRead(ButtonLeftPin) == LOW;
-}
-
-static bool buttonRightPressed(void){
-	return digitalRead(ButtonRightPin) == LOW;
 }

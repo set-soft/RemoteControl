@@ -13,4 +13,8 @@ void digitalWrite(pin_size_t pin, PinStatus val){
 		.withParameter("val", val);
 }
 
-PinStatus digitalRead(pin_size_t pin){return LOW;}
+PinStatus digitalRead(pin_size_t pin){
+	mock().actualCall("digitalRead")
+		.withParameter("pin", pin);
+	return (PinStatus)mock().intReturnValue();
+}
