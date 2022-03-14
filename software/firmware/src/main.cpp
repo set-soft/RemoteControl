@@ -16,7 +16,7 @@ void loop(void){
 	BLEDevice peripheral = BLE.available();
 
 	if(peripheral) {
-		if(peripheral.localName() != "LED") {
+		if(peripheral.localName() != "TurnTable") {
 			return;
 		}
 		BLE.stopScan();
@@ -44,11 +44,11 @@ void loop(void){
 		while(peripheral.connected()) {
 			if(buttonLeftPressed()){
 				setLedOn();
-				ledCharacteristic.writeValue((uint8_t)0x01);
+				ledCharacteristic.writeValue((byte)0x02);
 			}
 			else if(buttonRightPressed()){
 				setLedOff();
-				ledCharacteristic.writeValue((uint8_t)0x00);
+				ledCharacteristic.writeValue((byte)0x01);
 			}
 		}
 	}
