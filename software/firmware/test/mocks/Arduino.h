@@ -21,6 +21,7 @@ typedef enum {
 } PinStatus;
 
 typedef uint8_t pin_size_t;
+typedef uint8_t byte;
 
 void pinMode(pin_size_t pin, PinMode mode);
 void digitalWrite(pin_size_t pin, PinStatus val);
