@@ -9,4 +9,4 @@ RUN make install
 
 ENV CPPUTEST_HOME=/home/cpputest
 
-WORKDIR /home/firmware/test
+WORKDIR /home/project/test

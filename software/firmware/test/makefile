@@ -5,7 +5,7 @@ SILENCE = @
 COMPONENT_NAME = RemoteControl
 
 #--- Inputs ----#
-PROJECT_HOME_DIR = .
+PROJECT_HOME_DIR = ..
 ifeq "$(CPPUTEST_HOME)" ""
 $(error The environment variable CPPUTEST_HOME is not set. \
 Set it to where cpputest is installed)
@@ -23,8 +23,7 @@ endif
 #
 # SRC_DIRS specifies directories containing
 # production code C and CPP files.
-#
-SRC_FILES += 
+#SRC_FILES += 
 SRC_DIRS += ../src
 
 # --- TEST_SRC_FILES and TEST_SRC_DIRS ---
@@ -35,8 +34,7 @@ SRC_DIRS += ../src
 #
 # TEST_SRC_FILES specifies individual test files to build.
 # TEST_SRC_DIRS, builds everything in the directory
-
-TEST_SRC_FILES +=
+#TEST_SRC_FILES +=
 TEST_SRC_DIRS += tests
 
 # --- MOCKS_SRC_DIRS ---
@@ -69,9 +67,8 @@ INCLUDE_DIRS += ../include
 #
 # This is kind of a kludge, but it causes the
 # .o and .d files to be put under objs.
-CPPUTEST_OBJS_DIR = build/test-obj
-
-CPPUTEST_LIB_DIR = build/test-lib
+CPPUTEST_OBJS_DIR = temp/test-obj
+CPPUTEST_LIB_DIR = temp/test-lib
 
 # You may have to tweak these compiler flags
 #    CPPUTEST_WARNINGFLAGS - apply to C and C++
@@ -98,7 +95,7 @@ CPPUTEST_WARNINGFLAGS += -Wno-missing-noreturn
 endif
 
 CPPUTEST_WARNINGFLAGS += -Wall
-CPPUTEST_WARNINGFLAGS += -Werror
+#CPPUTEST_WARNINGFLAGS += -Werror
 CPPUTEST_WARNINGFLAGS += -Wfatal-errors
 CPPUTEST_WARNINGFLAGS += -Wswitch-default
 CPPUTEST_WARNINGFLAGS += -Wno-format-nonliteral

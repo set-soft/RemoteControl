@@ -2,6 +2,6 @@ version: "3.6"
 services: 
     cpputest:
         build: .
-        image: cpputest_test_runner
+        image: cpputest__remote_control
         volumes:
-            - ../:/home/firmware
+            - ../:/home/project
