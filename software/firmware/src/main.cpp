@@ -3,16 +3,29 @@
 
 #include "led.h"
 #include "buttons.h"
+#include "irRemoteHandler.h"
 
 const char* UUID = "19b10000-e8f2-537e-4f6c-d104768a1214";
 
+
 void setup(void){
+	irRemoteHandler::init();
 	initLed();
+
 	initButtons();
+
+	initLed();
 	BLE.begin();
 }
 
 void loop(void){
+	if(buttonLeftPressed()){
+		BLE.end(); //disable BLE for a while to prevent timing interferences due to interrupts
+		irRemoteHandler::send();
+		delay(1000);
+		BLE.begin();
+	}
+
 	BLEDevice peripheral = BLE.available();
 
 	if(peripheral) {
