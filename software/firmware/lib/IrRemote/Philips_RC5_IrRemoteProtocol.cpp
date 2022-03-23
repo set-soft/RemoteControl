@@ -42,7 +42,7 @@ namespace Philips_RC5_IrRemote{
 	}
 
 	void Protocol::sendLowestBits(uint8_t data, uint8_t nrOfBits){
-		const uint8_t Mask = 0x01 << nrOfBits;
+		const uint8_t Mask = 0x01 << (nrOfBits-1);
 		for(uint8_t n=0; n<nrOfBits; n++){
 			if(data & Mask){
 				sendHighBit();
