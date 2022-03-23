@@ -13,7 +13,6 @@ namespace Samsung_IrRemote{
 			void send(const uint16_t Address, const uint8_t Data);
 		private:
 			const unsigned int CarrierPeriodHalf_us = 13;
-			const unsigned int StartBitHalf_us = 4500;
 
 			InfraRed_on infraRed_on;
 			InfraRed_off infraRed_off;

@@ -20,6 +20,7 @@ namespace Samsung_IrRemote{
 	}
 
 	void Protocol::sendStartBit(){
+		const unsigned int StartBitHalf_us = 4500;
 		const unsigned int CarrierPeriods = StartBitHalf_us / (2*CarrierPeriodHalf_us);
 		sendCarrierNTimes(CarrierPeriods);
 		this->waitUs(StartBitHalf_us);
