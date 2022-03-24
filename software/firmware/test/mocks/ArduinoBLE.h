@@ -23,6 +23,7 @@ public:
 class BLELocalDevice{
 public:
 	virtual int begin();
+	virtual void end();
 	virtual int scanForUuid(String uuid, bool withDuplicates = false);
 	virtual void stopScan();
 	virtual BLEDevice available();

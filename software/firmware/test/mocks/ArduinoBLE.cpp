@@ -1,6 +1,7 @@
 #include "ArduinoBLE.h"
 
 int BLELocalDevice::begin(){return 0;}
+void BLELocalDevice::end(){}
 int BLELocalDevice::scanForUuid(String uuid, bool withDuplicates){return 0;}
 void BLELocalDevice::stopScan(){}
 BLEDevice BLELocalDevice::available(){return BLEDevice();}

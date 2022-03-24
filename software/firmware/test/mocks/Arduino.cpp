@@ -18,3 +18,8 @@ PinStatus digitalRead(pin_size_t pin){
 		.withParameter("pin", pin);
 	return (PinStatus)mock().intReturnValue();
 }
+
+void delay(unsigned long ms){
+	mock().actualCall("delay")
+		.withParameter("ms", ms);
+}

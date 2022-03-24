@@ -26,3 +26,5 @@ typedef uint8_t byte;
 void pinMode(pin_size_t pin, PinMode mode);
 void digitalWrite(pin_size_t pin, PinStatus val);
 PinStatus digitalRead(pin_size_t pin);
+
+void delay(unsigned long ms);
