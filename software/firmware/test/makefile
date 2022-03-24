@@ -51,6 +51,7 @@ CPPUTEST_USE_EXTENSIONS = Y
 INCLUDE_DIRS += $(CPPUTEST_HOME)/include
 INCLUDE_DIRS += $(CPPUTEST_HOME)/include/Platforms/Gcc
 INCLUDE_DIRS += ../include
+INCLUDE_DIRS += ../lib/IrRemote
 
 # --- CPPUTEST_OBJS_DIR ---
 # CPPUTEST_OBJS_DIR lets you control where the
