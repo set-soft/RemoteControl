@@ -23,3 +23,11 @@ void delay(unsigned long ms){
 	mock().actualCall("delay")
 		.withParameter("ms", ms);
 }
+
+void interrupts(){
+	mock().actualCall("interrupts");
+}
+
+void noInterrupts(){
+	mock().actualCall("noInterrupts");
+}

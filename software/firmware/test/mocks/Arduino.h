@@ -28,3 +28,6 @@ void digitalWrite(pin_size_t pin, PinStatus val);
 PinStatus digitalRead(pin_size_t pin);
 
 void delay(unsigned long ms);
+
+void interrupts();
+void noInterrupts();
