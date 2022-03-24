@@ -17,33 +17,67 @@ TEST(buttons_test, init){
 	mock().expectOneCall("pinMode")
 		.withParameter("pin", 6)
 		.withParameter("mode", 2);
+	mock().expectOneCall("pinMode")
+		.withParameter("pin", 3)
+		.withParameter("mode", 2);
+	mock().expectOneCall("pinMode")
+		.withParameter("pin", 4)
+		.withParameter("mode", 2);
 	initButtons();
 }
 
-TEST(buttons_test, buttonLeftPressed_false){
+TEST(buttons_test, buttonBackLeftPressed_false){
 	mock().expectOneCall("digitalRead")
 		.withParameter("pin", 6)
 		.andReturnValue(1);
-	CHECK_FALSE(buttonLeftPressed());
+	CHECK_FALSE(buttonBackLeftPressed());
 }
 
-TEST(buttons_test, buttonLeftPressed_true){
+TEST(buttons_test, buttonBackLeftPressed_true){
 	mock().expectOneCall("digitalRead")
 		.withParameter("pin", 6)
 		.andReturnValue(0);
-	CHECK(buttonLeftPressed());
+	CHECK(buttonBackLeftPressed());
 }
 
-TEST(buttons_test, buttonRightPressed_false){
+TEST(buttons_test, buttonBackRightPressed_false){
 	mock().expectOneCall("digitalRead")
 		.withParameter("pin", 5)
 		.andReturnValue(1);
-	CHECK_FALSE(buttonRightPressed());
+	CHECK_FALSE(buttonBackRightPressed());
 }
 
-TEST(buttons_test, buttonRightPressed_true){
+TEST(buttons_test, buttonBackRightPressed_true){
 	mock().expectOneCall("digitalRead")
 		.withParameter("pin", 5)
 		.andReturnValue(0);
-	CHECK(buttonRightPressed());
+	CHECK(buttonBackRightPressed());
+}
+
+TEST(buttons_test, buttonFrontLeftPressed_false){
+	mock().expectOneCall("digitalRead")
+		.withParameter("pin", 4)
+		.andReturnValue(1);
+	CHECK_FALSE(buttonFrontLeftPressed());
+}
+
+TEST(buttons_test, buttonFrontLeftPressed_true){
+	mock().expectOneCall("digitalRead")
+		.withParameter("pin", 4)
+		.andReturnValue(0);
+	CHECK(buttonFrontLeftPressed());
+}
+
+TEST(buttons_test, buttonFrontRightPressed_false){
+	mock().expectOneCall("digitalRead")
+		.withParameter("pin", 3)
+		.andReturnValue(1);
+	CHECK_FALSE(buttonFrontRightPressed());
+}
+
+TEST(buttons_test, buttonFrontRightPressed_true){
+	mock().expectOneCall("digitalRead")
+		.withParameter("pin", 3)
+		.andReturnValue(0);
+	CHECK(buttonFrontRightPressed());
 }

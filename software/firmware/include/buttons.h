@@ -1,5 +1,7 @@
 #pragma once
 
 void initButtons(void);
-bool buttonLeftPressed(void);
-bool buttonRightPressed(void);
+bool buttonBackLeftPressed(void);
+bool buttonBackRightPressed(void);
+bool buttonFrontLeftPressed(void);
+bool buttonFrontRightPressed(void);

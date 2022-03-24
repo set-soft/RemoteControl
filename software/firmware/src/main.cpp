@@ -19,7 +19,7 @@ void setup(void){
 }
 
 void loop(void){
-	if(buttonLeftPressed()){
+	if(buttonFrontLeftPressed()){
 		BLE.end(); //disable BLE for a while to prevent timing interferences due to interrupts
 		irRemoteHandler::send();
 		delay(1000);
@@ -55,11 +55,11 @@ void loop(void){
 		}
 
 		while(peripheral.connected()) {
-			if(buttonLeftPressed()){
+			if(buttonBackLeftPressed()){
 				setLedOn();
 				ledCharacteristic.writeValue((byte)0x02);
 			}
-			else if(buttonRightPressed()){
+			else if(buttonBackRightPressed()){
 				setLedOff();
 				ledCharacteristic.writeValue((byte)0x01);
 			}
