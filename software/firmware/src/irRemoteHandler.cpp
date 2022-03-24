@@ -5,12 +5,11 @@
 
 namespace irRemoteHandler{
 	static MELECTRONIC__MC_MI_1212::IrRemote* irRemote;
+	static const pin_size_t IrPin = 9;
 
 	static void infraRed_on();
 	static void infraRed_off();
 	static void waitUs(unsigned int microSeconds);
-
-	static const pin_size_t IrPin = 9;
 
 	void init(){
 		irRemote = new MELECTRONIC__MC_MI_1212::IrRemote(infraRed_on, infraRed_off, waitUs);
