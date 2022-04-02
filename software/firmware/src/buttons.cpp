@@ -1,30 +1,40 @@
 #include <Arduino.h>
 #include "buttons.h"
 
-static const pin_size_t ButtonBackLeftPin = 6;
-static const pin_size_t ButtonBackRightPin = 5;
-static const pin_size_t ButtonFrontLeftPin = 4;
-static const pin_size_t ButtonFrontRightPin = 3;
+namespace buttons{
+	static const pin_size_t ButtonBackLeftPin = 6;
+	static const pin_size_t ButtonBackRightPin = 5;
+	static const pin_size_t ButtonFrontLeftPin = 4;
+	static const pin_size_t ButtonFrontRightPin = 3;
 
-void initButtons(void){
-	pinMode(ButtonBackLeftPin, INPUT_PULLUP);
-	pinMode(ButtonBackRightPin, INPUT_PULLUP);
-	pinMode(ButtonFrontLeftPin, INPUT_PULLUP);
-	pinMode(ButtonFrontRightPin, INPUT_PULLUP);
-}
+	void init(){
+		pinMode(ButtonBackLeftPin, INPUT_PULLUP);
+		pinMode(ButtonBackRightPin, INPUT_PULLUP);
+		pinMode(ButtonFrontLeftPin, INPUT_PULLUP);
+		pinMode(ButtonFrontRightPin, INPUT_PULLUP);
+	}
 
-bool buttonBackLeftPressed(void){
-	return digitalRead(ButtonBackLeftPin) == LOW;
-}
+	void setBackLeftPressedCallback(Callback callback){
+		attachInterrupt(digitalPinToInterrupt(ButtonBackLeftPin), callback, FALLING);
+	}
 
-bool buttonBackRightPressed(void){
-	return digitalRead(ButtonBackRightPin) == LOW;
-}
+	void setBackRightPressedCallback(Callback callback){
+		attachInterrupt(digitalPinToInterrupt(ButtonBackRightPin), callback, FALLING);
+	}
 
-bool buttonFrontLeftPressed(void){
-	return digitalRead(ButtonFrontLeftPin) == LOW;
-}
+	void setFrontLeftPressedCallback(Callback callback){
+		attachInterrupt(digitalPinToInterrupt(ButtonFrontLeftPin), callback, FALLING);
+	}
 
-bool buttonFrontRightPressed(void){
-	return digitalRead(ButtonFrontRightPin) == LOW;
+	void setFrontRightPressedCallback(Callback callback){
+		attachInterrupt(digitalPinToInterrupt(ButtonFrontRightPin), callback, FALLING);
+	}
+
+	bool backLeftPressed(){
+		return digitalRead(ButtonBackLeftPin) == LOW;
+	}
+
+	bool backRightPressed(){
+		return digitalRead(ButtonBackRightPin) == LOW;
+	}
 }
