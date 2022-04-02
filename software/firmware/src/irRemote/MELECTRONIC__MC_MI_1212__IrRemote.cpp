@@ -7,7 +7,7 @@ namespace MELECTRONIC__MC_MI_1212{
 	
 	void IrRemote::send(Command command){
 		switch(command){
-			case MELECTRONIC__MC_MI_1212::Command::ToggleOnOff:
+			case MELECTRONIC__MC_MI_1212::Command::ToggleStandby:
 				this->remoteProtocol->send(0x0808, 0x78);
 				break;
 			default:

@@ -50,21 +50,25 @@ namespace Philips_RC5_IrRemote{
 		Key8 = 0x08,
 		Key9 = 0x09,
 		SelectChannel = 0x0A,
-		Standby = 0x0B,
-		Mute = 0x0C,
-		VolumeUp = 0x0D,
-		VolumeDown = 0x0E,
-		BrightnessUp = 0x0F,
-		BrightnessDown = 0x10,
-		ProgramUp = 0x11,
-		ProgramDown = 0x12,
+		// 0x0B,
+		Standby = 0x0C,
+
+		// There are inconsistencies in the lists in the internet.
+		// More commands will be added as they show up.
+		//Mute = 0x0D,
+		//VolumeUp = 0x0D,
+		//VolumeDown = 0x0E,
+		//BrightnessUp = 0x0F,
+		//BrightnessDown = 0x10,
+		//ProgramUp = 0x11,
+		//ProgramDown = 0x12,
 		// 0x13 - 0x31
-		FastRewind = 0x32,
+		//FastRewind = 0x32,
 		// 0x33
-		FastForward = 0x34,
-		Play = 0x35,
-		Stop = 0x36,
-		Recording = 0x37,
+		//FastForward = 0x34,
+		//Play = 0x35,
+		//Stop = 0x36,
+		//Recording = 0x37,
 		// 0x38 - 0x3F
 	};
 
@@ -77,7 +81,7 @@ namespace Philips_RC5_IrRemote{
 			Protocol(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
 			void send(Address address, Command command);
 		private:
-			const unsigned int CarrierPeriodHalf_us = 13;
+			const unsigned int CarrierPeriodHalf_us = 14;
 			bool toggleBit = false;
 
 			InfraRed_on infraRed_on;

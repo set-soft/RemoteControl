@@ -21,7 +21,13 @@ void setup(void){
 void loop(void){
 	if(buttonFrontLeftPressed()){
 		BLE.end(); //disable BLE for a while to prevent timing interferences due to interrupts
-		irRemoteHandler::send();
+		irRemoteHandler::send(irRemoteHandler::Command::HiFi_ToggleStandby);
+		delay(1000);
+		BLE.begin();
+	}
+	else if(buttonFrontRightPressed()){
+		BLE.end(); //disable BLE for a while to prevent timing interferences due to interrupts
+		irRemoteHandler::send(irRemoteHandler::Command::TV_ToggleStandby);
 		delay(1000);
 		BLE.begin();
 	}
