@@ -1,4 +1,5 @@
 #include "turnTable.h"
+#include <Arduino.h>
 #include <ArduinoBLE.h>
 
 namespace turnTable{
@@ -16,7 +17,7 @@ namespace turnTable{
 			peripheral = BLE.available();
 			BLE.scanForUuid(UUID);
 		}
-		else if(!peripheral.connected())
+		else if(!peripheral.connected()){
 			if(peripheral.localName() != "TurnTable") {
 				return;
 			}
