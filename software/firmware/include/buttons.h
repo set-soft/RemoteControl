@@ -1,14 +1,16 @@
 #pragma once
 
 namespace buttons{
-	typedef void (*Callback)();
+	enum class Buttons{
+		BackLeft,
+		BackRight,
+		FrontLeft,
+		FrontRight,
+		None,
+	};
 
 	void init();
-	void setBackLeftPressedCallback(Callback callback);
-	void setBackRightPressedCallback(Callback callback);
-	void setFrontLeftPressedCallback(Callback callback);
-	void setFrontRightPressedCallback(Callback callback);
-
+	Buttons getPressedEvent();
 	bool backLeftPressed();
 	bool backRightPressed();
 }
