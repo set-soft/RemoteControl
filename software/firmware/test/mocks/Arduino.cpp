@@ -31,3 +31,16 @@ void interrupts(){
 void noInterrupts(){
 	mock().actualCall("noInterrupts");
 }
+
+pin_size_t digitalPinToInterrupt(pin_size_t pin){
+	mock().actualCall("digitalPinToInterrupt")
+		.withParameter("pin", pin);
+	return mock().intReturnValue();
+}
+
+void attachInterrupt(pin_size_t interruptNum, voidFuncPtr func, PinStatus mode){
+	/*mock().actualCall("attachInterrupt");
+		.withParameter("interruptNum", interruptNum)
+		.withParameter("func", func)
+		.withParameter("mode", mode);*/
+}

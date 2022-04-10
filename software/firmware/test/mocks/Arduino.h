@@ -22,6 +22,7 @@ typedef enum {
 
 typedef uint8_t pin_size_t;
 typedef uint8_t byte;
+typedef void (*voidFuncPtr)(void);
 
 void pinMode(pin_size_t pin, PinMode mode);
 void digitalWrite(pin_size_t pin, PinStatus val);
@@ -31,3 +32,5 @@ void delay(unsigned long ms);
 
 void interrupts();
 void noInterrupts();
+pin_size_t digitalPinToInterrupt(pin_size_t pin);
+void attachInterrupt(pin_size_t interruptNum, voidFuncPtr func, PinStatus mode);
