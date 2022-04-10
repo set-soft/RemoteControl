@@ -2,13 +2,36 @@
 #include <Arduino.h> //TODO: try to remove this include
 
 namespace Philips_RC5_IrRemote{
-	Protocol::Protocol(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
-		this->infraRed_on = infraRed_on;
-		this->infraRed_off = infraRed_off;
-		this->waitUs = waitUs;
+	static const unsigned int CarrierPeriodHalf_us = 15;
+	static bool toggleBit = false;
+	static InfraRed_on infraRed_on;
+	static InfraRed_off infraRed_off;
+	static WaitMicroseconds waitUs;
+	static IrRemoteRaw::Configuration irRemoteRawConfig;
+
+	static void waitCarrierHalfPeriod();
+	static void sendStartBits();
+	static void sendToggleBit();
+	static void sendAddress(Address address);
+	static void sendCommand(Command command);
+	static void sendLowestBits(uint8_t data, uint8_t nrOfBits);
+	static void sendHighBit();
+	static void sendLowBit();
+
+	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
+		Philips_RC5_IrRemote::infraRed_on = infraRed_on;
+		Philips_RC5_IrRemote::infraRed_off = infraRed_off;
+		Philips_RC5_IrRemote::waitUs = waitUs;
+		irRemoteRawConfig.infraRed_on = infraRed_on;
+		irRemoteRawConfig.infraRed_off = infraRed_off;
+		irRemoteRawConfig.waitCarrierHalfPeriod = waitCarrierHalfPeriod;
+	}
+
+	static void waitCarrierHalfPeriod(){
+		waitUs(CarrierPeriodHalf_us);
 	}
 	
-	void Protocol::send(Address address, Command command){
+	void send(Address address, Command command){
 		noInterrupts(); //disable interrupts makes the timing better
 		sendStartBits();
 		sendToggleBit();
@@ -17,13 +40,13 @@ namespace Philips_RC5_IrRemote{
 		interrupts();
 	}
 
-	void Protocol::sendStartBits(){
-		this->sendHighBit();
-		this->sendHighBit();
+	static void sendStartBits(){
+		sendHighBit();
+		sendHighBit();
 	}
 
-	void Protocol::sendToggleBit(){
-		if(this->toggleBit){
+	static void sendToggleBit(){
+		if(toggleBit){
 			sendHighBit();
 			toggleBit = false;
 		}
@@ -33,15 +56,15 @@ namespace Philips_RC5_IrRemote{
 		}
 	}
 
-	void Protocol::sendAddress(Address address){
+	static void sendAddress(Address address){
 		sendLowestBits((uint8_t)address, 5);
 	}
 
-	void Protocol::sendCommand(Command command){
+	static void sendCommand(Command command){
 		sendLowestBits((uint8_t)command, 6);
 	}
 
-	void Protocol::sendLowestBits(uint8_t data, uint8_t nrOfBits){
+	static void sendLowestBits(uint8_t data, uint8_t nrOfBits){
 		const uint8_t Mask = 0x01 << (nrOfBits-1);
 		for(uint8_t n=0; n<nrOfBits; n++){
 			if(data & Mask){
@@ -54,22 +77,13 @@ namespace Philips_RC5_IrRemote{
 		}
 	}
 
-	void Protocol::sendHighBit(){
-		this->waitUs(889);
-		sendCarrierNTimes(32);
+	static void sendHighBit(){
+		waitUs(889);
+		IrRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
 	}
 
-	void Protocol::sendLowBit(){
-		sendCarrierNTimes(32);
-		this->waitUs(889);
-	}
-
-	void Protocol::sendCarrierNTimes(uint16_t periods){
-		for(uint16_t n=0; n < periods; n++){
-			this->infraRed_on();
-			this->waitUs(CarrierPeriodHalf_us);
-			this->infraRed_off();
-			this->waitUs(CarrierPeriodHalf_us);
-		}
+	static void sendLowBit(){
+		IrRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
+		waitUs(889);
 	}
 }

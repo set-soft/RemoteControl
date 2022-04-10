@@ -5,8 +5,6 @@
 #include <Arduino.h>
 
 namespace irRemoteHandler{
-	static MELECTRONIC__MC_MI_1212::IrRemote* hifi_irRemote;
-	static FINLUX__32FLE845_Eco::IrRemote* tv_irRemote;
 	static const pin_size_t IrPin = 9;
 
 	static void infraRed_on();
@@ -14,18 +12,18 @@ namespace irRemoteHandler{
 	static void waitUs(unsigned int microSeconds);
 
 	void init(){
-		hifi_irRemote = new MELECTRONIC__MC_MI_1212::IrRemote(infraRed_on, infraRed_off, waitUs);
-		tv_irRemote = new FINLUX__32FLE845_Eco::IrRemote(infraRed_on, infraRed_off, waitUs);
+		MELECTRONIC__MC_MI_1212::init(infraRed_on, infraRed_off, waitUs);
+		FINLUX__32FLE845_Eco::init(infraRed_on, infraRed_off, waitUs);
 		pinMode(IrPin, OUTPUT);
 	}
 	
 	void send(Command command){
 		switch(command){
 			case(Command::HiFi_ToggleStandby):
-				hifi_irRemote->send(MELECTRONIC__MC_MI_1212::Command::ToggleStandby);
+				MELECTRONIC__MC_MI_1212::send(MELECTRONIC__MC_MI_1212::Command::ToggleStandby);
 				break;
 			case(Command::TV_ToggleStandby):
-				tv_irRemote->send(FINLUX__32FLE845_Eco::Command::ToggleStandby);
+				FINLUX__32FLE845_Eco::send(FINLUX__32FLE845_Eco::Command::ToggleStandby);
 				break;
 			default:
 				//do nothing

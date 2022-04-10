@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include "IrRemoteRaw.h"
 
 namespace Philips_RC5_IrRemote{
 	enum class Address{
@@ -76,25 +76,6 @@ namespace Philips_RC5_IrRemote{
 	typedef void (*InfraRed_off)();
 	typedef void (*WaitMicroseconds)(unsigned int microseconds);
 
-	class Protocol{
-		public:
-			Protocol(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
-			void send(Address address, Command command);
-		private:
-			const unsigned int CarrierPeriodHalf_us = 14;
-			bool toggleBit = false;
-
-			InfraRed_on infraRed_on;
-			InfraRed_off infraRed_off;
-			WaitMicroseconds waitUs;
-
-			void sendStartBits();
-			void sendToggleBit();
-			void sendAddress(Address address);
-			void sendCommand(Command command);
-			void sendLowestBits(uint8_t data, uint8_t nrOfBits);
-			void sendHighBit();
-			void sendLowBit();
-			void sendCarrierNTimes(uint16_t periods);
-	};
+	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
+	void send(Address address, Command command);
 }
