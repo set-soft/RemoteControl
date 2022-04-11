@@ -1,5 +1,5 @@
 #include "Samsung_IrRemoteProtocol.h"
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 #include <Arduino.h> //TODO: try to remove this include
 
 namespace Samsung_IrRemote{
@@ -7,7 +7,7 @@ namespace Samsung_IrRemote{
 	static InfraRed_on infraRed_on;
 	static InfraRed_off infraRed_off;
 	static WaitMicroseconds waitUs;
-	static IrRemoteRaw::Configuration irRemoteRawConfig;
+	static irRemoteRaw::Configuration irRemoteRawConfig;
 
 	static void waitCarrierHalfPeriod();
 	static void sendStartBit();
@@ -43,7 +43,7 @@ namespace Samsung_IrRemote{
 	static void sendStartBit(){
 		const unsigned int StartBitHalf_us = 4500;
 		const unsigned int CarrierPeriods = StartBitHalf_us / (2*CarrierPeriodHalf_us);
-		IrRemoteRaw::sendCarrierNTimes(CarrierPeriods, irRemoteRawConfig);
+		irRemoteRaw::sendCarrierNTimes(CarrierPeriods, irRemoteRawConfig);
 		waitUs(StartBitHalf_us);
 	}
 
@@ -60,12 +60,12 @@ namespace Samsung_IrRemote{
 	}
 
 	static void sendHighBit(){
-		IrRemoteRaw::sendCarrierNTimes(21, irRemoteRawConfig);
+		irRemoteRaw::sendCarrierNTimes(21, irRemoteRawConfig);
 		waitUs(1690);
 	}
 
 	static void sendLowBit(){
-		IrRemoteRaw::sendCarrierNTimes(21, irRemoteRawConfig);
+		irRemoteRaw::sendCarrierNTimes(21, irRemoteRawConfig);
 		waitUs(560);
 	}
 

@@ -1,7 +1,7 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 #include "Samsung_IrRemoteProtocol.h"
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 
 TEST_GROUP(Samsung_IrRemoteProtocol_test){
 	void setup(void){}
@@ -25,7 +25,7 @@ static void waitUs_mock(unsigned int microSeconds){
 		.withParameter("microSeconds", microSeconds);
 }
 
-static void sendCarrierNTimes_mock(uint16_t periods, IrRemoteRaw::Configuration configuration){
+static void sendCarrierNTimes_mock(uint16_t periods, irRemoteRaw::Configuration configuration){
 	mock().actualCall("sendCarrierNTimes_mock")
 		.withParameter("periods", periods);
 
@@ -81,7 +81,7 @@ TEST(Samsung_IrRemoteProtocol_test, send){
 	const uint16_t Address = 0x1234;
 	const uint8_t Data = 0xAB; 
 
-	UT_PTR_SET(IrRemoteRaw::sendCarrierNTimes, sendCarrierNTimes_mock);
+	UT_PTR_SET(irRemoteRaw::sendCarrierNTimes, sendCarrierNTimes_mock);
 	mock().strictOrder();
 	mock().expectOneCall("noInterrupts"); //TODO: remove
 	expect_sendStartBit();

@@ -1,7 +1,7 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 #include "Philips_RC5_IrRemoteProtocol.h"
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 
 static void infraRed_on_mock(){
 	mock().actualCall("infraRed_on_mock");
@@ -16,7 +16,7 @@ static void waitUs_mock(unsigned int microSeconds){
 		.withParameter("microSeconds", microSeconds);
 }
 
-static void sendCarrierNTimes_mock(uint16_t periods, IrRemoteRaw::Configuration configuration){
+static void sendCarrierNTimes_mock(uint16_t periods, irRemoteRaw::Configuration configuration){
 	mock().actualCall("sendCarrierNTimes_mock")
 		.withParameter("periods", periods);
 
@@ -28,7 +28,7 @@ static void sendCarrierNTimes_mock(uint16_t periods, IrRemoteRaw::Configuration 
 
 TEST_GROUP(Philips_RC5_IrRemoteProtocol_test){
 	void setup(void){
-		UT_PTR_SET(IrRemoteRaw::sendCarrierNTimes, sendCarrierNTimes_mock);
+		UT_PTR_SET(irRemoteRaw::sendCarrierNTimes, sendCarrierNTimes_mock);
 	}
 
 	void teardown(void){

@@ -1,6 +1,6 @@
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 
-namespace IrRemoteRaw{
+namespace irRemoteRaw{
     void sendCarrierNTimes_Implementation(uint16_t periods, Configuration configuration){
 		for(uint16_t n=0; n < periods; n++){
 			configuration.infraRed_on();

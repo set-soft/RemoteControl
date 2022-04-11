@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-namespace IrRemoteRaw{
+namespace irRemoteRaw{
 	struct Configuration{
 		void (*infraRed_on)();
 		void (*infraRed_off)();

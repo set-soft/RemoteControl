@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 
 namespace Philips_RC5_IrRemote{
 	enum class Address{

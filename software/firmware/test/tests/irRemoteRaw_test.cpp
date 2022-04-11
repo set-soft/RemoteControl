@@ -1,8 +1,8 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
-#include "IrRemoteRaw.h"
+#include "irRemoteRaw.h"
 
-static IrRemoteRaw::Configuration irRemoteRawConfig;
+static irRemoteRaw::Configuration irRemoteRawConfig;
 
 static void infraRed_on_mock(){
 	mock().actualCall("infraRed_on_mock");
@@ -40,7 +40,7 @@ TEST(IrRemoteRaw_test, sendCarrierNTimes){
 		mock().expectOneCall("waitCarrierHalfPeriod_mock");
 	}
 
-	IrRemoteRaw::sendCarrierNTimes(NrOfCarriers, irRemoteRawConfig);
+	irRemoteRaw::sendCarrierNTimes(NrOfCarriers, irRemoteRawConfig);
 }
 
 TEST(IrRemoteRaw_test, sendCarrierNTimes_zero){
@@ -48,5 +48,5 @@ TEST(IrRemoteRaw_test, sendCarrierNTimes_zero){
 	mock().expectNoCall("infraRed_off_mock");
 	mock().expectNoCall("waitCarrierHalfPeriod_mock");
 
-	IrRemoteRaw::sendCarrierNTimes(0, irRemoteRawConfig);
+	irRemoteRaw::sendCarrierNTimes(0, irRemoteRawConfig);
 }

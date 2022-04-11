@@ -7,7 +7,7 @@ namespace Philips_RC5_IrRemote{
 	static InfraRed_on infraRed_on;
 	static InfraRed_off infraRed_off;
 	static WaitMicroseconds waitUs;
-	static IrRemoteRaw::Configuration irRemoteRawConfig;
+	static irRemoteRaw::Configuration irRemoteRawConfig;
 
 	static void waitCarrierHalfPeriod();
 	static void sendStartBits();
@@ -80,11 +80,11 @@ namespace Philips_RC5_IrRemote{
 
 	static void sendHighBit(){
 		waitUs(889);
-		IrRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
+		irRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
 	}
 
 	static void sendLowBit(){
-		IrRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
+		irRemoteRaw::sendCarrierNTimes(32, irRemoteRawConfig);
 		waitUs(889);
 	}
 }
