@@ -16,7 +16,7 @@ namespace Samsung_IrRemote{
 	static void sendLowBit();
 	static void sendStopBit();
 
-	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
+	static void init_Implementation(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
 		Samsung_IrRemote::infraRed_on = infraRed_on;
 		Samsung_IrRemote::infraRed_off = infraRed_off;
 		Samsung_IrRemote::waitUs = waitUs;
@@ -24,12 +24,13 @@ namespace Samsung_IrRemote{
 		irRemoteRawConfig.infraRed_off = infraRed_off;
 		irRemoteRawConfig.waitCarrierHalfPeriod = waitCarrierHalfPeriod;
 	}
+	void (*init)(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs) = init_Implementation;
 
 	static void waitCarrierHalfPeriod(){
 		waitUs(CarrierPeriodHalf_us);
 	}
 	
-	void send(const uint16_t Address, const uint8_t Data){
+	static void send_Implementation(const uint16_t Address, const uint8_t Data){
 		noInterrupts(); //disable interrupts makes the timing better
 		sendStartBit();
 		sendByte(Address >> 8);
@@ -39,6 +40,7 @@ namespace Samsung_IrRemote{
 		sendStopBit();
 		interrupts();
 	}
+	void (*send)(const uint16_t Address, const uint8_t Data) = send_Implementation;
 
 	static void sendStartBit(){
 		const unsigned int StartBitHalf_us = 4500;
