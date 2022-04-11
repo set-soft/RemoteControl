@@ -1,6 +1,7 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 #include "Samsung_IrRemoteProtocol.h"
+#include "IrRemoteRaw.h"
 
 TEST_GROUP(Samsung_IrRemoteProtocol_test){
 	void setup(void){}
@@ -9,6 +10,7 @@ TEST_GROUP(Samsung_IrRemoteProtocol_test){
 		mock().clear();
 	}
 };
+
 
 static void infraRed_on_mock(){
 	mock().actualCall("infraRed_on_mock");
@@ -23,14 +25,21 @@ static void waitUs_mock(unsigned int microSeconds){
 		.withParameter("microSeconds", microSeconds);
 }
 
+static void sendCarrierNTimes_mock(uint16_t periods, IrRemoteRaw::Configuration configuration){
+	mock().actualCall("sendCarrierNTimes_mock")
+		.withParameter("periods", periods);
+
+	CHECK_EQUAL(infraRed_on_mock, configuration.infraRed_on);
+	CHECK_EQUAL(infraRed_off_mock, configuration.infraRed_off);
+	configuration.waitCarrierHalfPeriod();
+}
+
+
 static void expect_sendCarrierNTimes(uint16_t periods){
-	const unsigned int CarrierPeriodHalf_us = 13;
-	mock().expectNCalls(periods, "infraRed_on_mock");
-	mock().expectNCalls(periods, "waitUs_mock")
-		.withParameter("microSeconds", CarrierPeriodHalf_us);
-	mock().expectNCalls(periods, "infraRed_off_mock");
-	mock().expectNCalls(periods, "waitUs_mock")
-		.withParameter("microSeconds", CarrierPeriodHalf_us);
+	mock().expectOneCall("sendCarrierNTimes_mock")
+		.withParameter("periods", periods);
+	mock().expectOneCall("waitUs_mock")
+		.withParameter("microSeconds", 13);
 }
 
 static void expect_sendHighBit(){
@@ -67,10 +76,13 @@ static void expect_sendByte(uint8_t data){
 	}
 }
 
+
 TEST(Samsung_IrRemoteProtocol_test, send){
 	const uint16_t Address = 0x1234;
 	const uint8_t Data = 0xAB; 
 
+	UT_PTR_SET(IrRemoteRaw::sendCarrierNTimes, sendCarrierNTimes_mock);
+	mock().strictOrder();
 	mock().expectOneCall("noInterrupts"); //TODO: remove
 	expect_sendStartBit();
 	expect_sendByte(Address >> 8);
@@ -80,7 +92,6 @@ TEST(Samsung_IrRemoteProtocol_test, send){
 	expect_sendStopBit();
 	mock().expectOneCall("interrupts"); //TODO: remove
 
-	Samsung_IrRemote::Protocol* remoteProtocol = new Samsung_IrRemote::Protocol(infraRed_on_mock, infraRed_off_mock, waitUs_mock);
-	remoteProtocol->send(Address, Data);
-	delete remoteProtocol;
+	Samsung_IrRemote::init(infraRed_on_mock, infraRed_off_mock, waitUs_mock);
+	Samsung_IrRemote::send(Address, Data);
 }

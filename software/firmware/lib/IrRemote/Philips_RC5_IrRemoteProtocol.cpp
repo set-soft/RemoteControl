@@ -3,7 +3,7 @@
 
 namespace Philips_RC5_IrRemote{
 	static const unsigned int CarrierPeriodHalf_us = 15;
-	static bool toggleBit = false;
+	static bool toggleBit;
 	static InfraRed_on infraRed_on;
 	static InfraRed_off infraRed_off;
 	static WaitMicroseconds waitUs;
@@ -25,6 +25,7 @@ namespace Philips_RC5_IrRemote{
 		irRemoteRawConfig.infraRed_on = infraRed_on;
 		irRemoteRawConfig.infraRed_off = infraRed_off;
 		irRemoteRawConfig.waitCarrierHalfPeriod = waitCarrierHalfPeriod;
+		toggleBit = false;
 	}
 
 	static void waitCarrierHalfPeriod(){

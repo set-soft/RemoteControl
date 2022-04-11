@@ -9,5 +9,5 @@ namespace IrRemoteRaw{
 		void (*waitCarrierHalfPeriod)();
 	};
 
-	void sendCarrierNTimes(uint16_t periods, Configuration configuration);
+	extern void (*sendCarrierNTimes)(uint16_t periods, Configuration configuration);
 }

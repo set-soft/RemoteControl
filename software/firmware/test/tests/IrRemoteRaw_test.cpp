@@ -2,13 +2,7 @@
 #include "CppUTestExt/MockSupport.h"
 #include "IrRemoteRaw.h"
 
-TEST_GROUP(IrRemoteRaw_test){
-	void setup(void){}
-	void teardown(void){
-    	mock().checkExpectations();
-		mock().clear();
-	}
-};
+static IrRemoteRaw::Configuration irRemoteRawConfig;
 
 static void infraRed_on_mock(){
 	mock().actualCall("infraRed_on_mock");
@@ -22,6 +16,19 @@ static void waitCarrierHalfPeriod_mock(){
 	mock().actualCall("waitCarrierHalfPeriod_mock");
 }
 
+TEST_GROUP(IrRemoteRaw_test){
+	void setup(void){
+		irRemoteRawConfig.infraRed_on = infraRed_on_mock;
+		irRemoteRawConfig.infraRed_off = infraRed_off_mock;
+		irRemoteRawConfig.waitCarrierHalfPeriod = waitCarrierHalfPeriod_mock;
+	}
+
+	void teardown(void){
+    	mock().checkExpectations();
+		mock().clear();
+	}
+};
+
 TEST(IrRemoteRaw_test, sendCarrierNTimes){
 	const uint8_t NrOfCarriers = 42;
 
@@ -33,9 +40,7 @@ TEST(IrRemoteRaw_test, sendCarrierNTimes){
 		mock().expectOneCall("waitCarrierHalfPeriod_mock");
 	}
 
-	IrRemoteRaw::IrRemoteRaw* irRemoteRaw = new IrRemoteRaw::IrRemoteRaw(infraRed_on_mock, infraRed_off_mock, waitCarrierHalfPeriod_mock);
-	irRemoteRaw->sendCarrierNTimes(NrOfCarriers);
-	delete irRemoteRaw;
+	IrRemoteRaw::sendCarrierNTimes(NrOfCarriers, irRemoteRawConfig);
 }
 
 TEST(IrRemoteRaw_test, sendCarrierNTimes_zero){
@@ -43,7 +48,5 @@ TEST(IrRemoteRaw_test, sendCarrierNTimes_zero){
 	mock().expectNoCall("infraRed_off_mock");
 	mock().expectNoCall("waitCarrierHalfPeriod_mock");
 
-	IrRemoteRaw::IrRemoteRaw* irRemoteRaw = new IrRemoteRaw::IrRemoteRaw(infraRed_on_mock, infraRed_off_mock, waitCarrierHalfPeriod_mock);
-	irRemoteRaw->sendCarrierNTimes(0);
-	delete irRemoteRaw;
+	IrRemoteRaw::sendCarrierNTimes(0, irRemoteRawConfig);
 }
