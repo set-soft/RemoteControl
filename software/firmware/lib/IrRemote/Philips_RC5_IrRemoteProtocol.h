@@ -76,6 +76,6 @@ namespace Philips_RC5_IrRemote{
 	typedef void (*InfraRed_off)();
 	typedef void (*WaitMicroseconds)(unsigned int microseconds);
 
-	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
-	void send(Address address, Command command);
+	extern void (*init)(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
+	extern void (*send)(Address address, Command command);
 }

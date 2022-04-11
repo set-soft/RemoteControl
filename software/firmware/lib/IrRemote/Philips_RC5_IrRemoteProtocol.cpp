@@ -18,7 +18,7 @@ namespace Philips_RC5_IrRemote{
 	static void sendHighBit();
 	static void sendLowBit();
 
-	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
+	static void init_Implementation(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs){
 		Philips_RC5_IrRemote::infraRed_on = infraRed_on;
 		Philips_RC5_IrRemote::infraRed_off = infraRed_off;
 		Philips_RC5_IrRemote::waitUs = waitUs;
@@ -27,12 +27,13 @@ namespace Philips_RC5_IrRemote{
 		irRemoteRawConfig.waitCarrierHalfPeriod = waitCarrierHalfPeriod;
 		toggleBit = false;
 	}
+	void (*init)(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs) = init_Implementation;
 
 	static void waitCarrierHalfPeriod(){
 		waitUs(CarrierPeriodHalf_us);
 	}
 	
-	void send(Address address, Command command){
+	static void send_Implementation(Address address, Command command){
 		noInterrupts(); //disable interrupts makes the timing better
 		sendStartBits();
 		sendToggleBit();
@@ -40,6 +41,7 @@ namespace Philips_RC5_IrRemote{
 		sendCommand(command);
 		interrupts();
 	}
+	void (*send)(Address address, Command command) = send_Implementation;	
 
 	static void sendStartBits(){
 		sendHighBit();
