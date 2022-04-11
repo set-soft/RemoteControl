@@ -35,12 +35,14 @@ void noInterrupts(){
 pin_size_t digitalPinToInterrupt(pin_size_t pin){
 	mock().actualCall("digitalPinToInterrupt")
 		.withParameter("pin", pin);
-	return mock().intReturnValue();
+	return pin;
 }
 
 void attachInterrupt(pin_size_t interruptNum, voidFuncPtr func, PinStatus mode){
-	/*mock().actualCall("attachInterrupt");
+	mock().actualCall("attachInterrupt")
 		.withParameter("interruptNum", interruptNum)
-		.withParameter("func", func)
-		.withParameter("mode", mode);*/
+		.withParameter("mode", mode);
+
+	const char* DataName = ("func"+std::to_string(interruptNum)).c_str();
+	mock().setData(DataName, func);
 }
