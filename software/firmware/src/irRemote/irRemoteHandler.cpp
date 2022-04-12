@@ -11,13 +11,14 @@ namespace irRemoteHandler{
 	static void infraRed_off();
 	static void waitUs(unsigned int microSeconds);
 
-	void init(){
+	static void init_Implementation(){
 		MELECTRONIC__MC_MI_1212::init(infraRed_on, infraRed_off, waitUs);
 		FINLUX__32FLE845_Eco::init(infraRed_on, infraRed_off, waitUs);
 		pinMode(IrPin, OUTPUT);
 	}
+	void (*init)() = init_Implementation;
 	
-	void send(Command command){
+	static void send_Implementation(Command command){
 		switch(command){
 			case(Command::HiFi_ToggleStandby):
 				MELECTRONIC__MC_MI_1212::send(MELECTRONIC__MC_MI_1212::Command::ToggleStandby);
@@ -30,6 +31,7 @@ namespace irRemoteHandler{
 				break;
 		}
 	}
+	void (*send)(Command command) = send_Implementation;
 
 	static void infraRed_on(){
 		digitalWrite(IrPin, HIGH);

@@ -9,8 +9,8 @@ namespace buttons{
 		None,
 	};
 
-	void init();
-	Buttons getPressedEvent();
-	bool backLeftPressed();
-	bool backRightPressed();
+	extern void (*init)();
+	extern Buttons (*getPressedEvent)();
+	extern bool (*backLeftPressed)();
+	extern bool (*backRightPressed)();
 }

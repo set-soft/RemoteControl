@@ -8,11 +8,12 @@ namespace turnTable{
 	static BLEDevice peripheral;
 	static BLECharacteristic turnCharacteristic;
 
-	void init(){
+	static void init_Implementation(){
 		BLE.begin();
 	}
+	void (*init)() = init_Implementation;
 
-	void tick(){
+	static void tick_Implementation(){
 		if(!peripheral){
 			peripheral = BLE.available();
 			BLE.scanForUuid(UUID);
@@ -45,8 +46,9 @@ namespace turnTable{
 			}
 		}
 	}
+	void (*tick)() = tick_Implementation;
 
-	void sendCommand(Command command){
+	static void sendCommand_Implementation(Command command){
 		switch(command){
 			case Command::TurnClockWise:
 				turnCharacteristic.writeValue((byte)0x01);
@@ -60,4 +62,5 @@ namespace turnTable{
 		}
 
 	}
+	void (*sendCommand)(Command command) = sendCommand_Implementation;
 }

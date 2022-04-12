@@ -8,6 +8,6 @@ namespace irRemoteHandler{
 		TV_ToggleStandby,
 	};
 
-	void init();
-	void send(Command command);
+	extern void (*init)();
+	extern void (*send)(Command command);
 }

@@ -6,7 +6,7 @@ namespace turnTable{
 		TurnCounterClockWise,
 	};
 
-	void init();
-	void tick();
-	void sendCommand(Command command);
+	extern void (*init)();
+	extern void (*tick)();
+	extern void (*sendCommand)(Command command);
 }

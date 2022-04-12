@@ -13,7 +13,7 @@ namespace buttons{
 	static void frontLeftPressed_interrupt();
 	static void frontRightPressed_interrupt();
 
-	void init(){
+	static void init_Implementation(){
 		pinMode(ButtonBackLeftPin, INPUT_PULLUP);
 		pinMode(ButtonBackRightPin, INPUT_PULLUP);
 		pinMode(ButtonFrontLeftPin, INPUT_PULLUP);
@@ -24,20 +24,24 @@ namespace buttons{
 		attachInterrupt(digitalPinToInterrupt(ButtonFrontLeftPin), frontLeftPressed_interrupt, FALLING);
 		attachInterrupt(digitalPinToInterrupt(ButtonFrontRightPin), frontRightPressed_interrupt, FALLING);
 	}
+	void (*init)() = init_Implementation;
 
-	Buttons getPressedEvent(){
+	static Buttons getPressedEvent_Implementation(){
 		Buttons temp = pressedButton;
 		pressedButton = Buttons::None;
 		return temp;
 	}
+	Buttons (*getPressedEvent)() = getPressedEvent_Implementation;
 
-	bool backLeftPressed(){
+	static bool backLeftPressed_Implementation(){
 		return digitalRead(ButtonBackLeftPin) == LOW;
 	}
+	bool (*backLeftPressed)() = backLeftPressed_Implementation;
 
-	bool backRightPressed(){
+	static bool backRightPressed_Implementation(){
 		return digitalRead(ButtonBackRightPin) == LOW;
 	}
+	bool (*backRightPressed)() = backRightPressed_Implementation;
 
 
 	static void backLeftPressed_interrupt(){
