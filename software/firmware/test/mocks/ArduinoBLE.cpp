@@ -1,18 +1,44 @@
 #include "ArduinoBLE.h"
+#include "CppUTestExt/MockSupport.h"
 
-int BLELocalDevice::begin(){return 0;}
+int BLECharacteristic::writeValue(uint8_t value, bool withResponse){
+	mock().actualCall("BLECharacteristic::writeValue")
+		.withParameter("value", value);
+	CHECK_EQUAL(true, withResponse);
+	return 0;
+}
+
+BLECharacteristic::operator bool() const{return false;}
+
+bool BLECharacteristic::canWrite(){return false;}
+
+
+int BLELocalDevice::begin(){
+	mock().actualCall("BLELocalDevice::begin");
+	return 0;
+}
+
 void BLELocalDevice::end(){}
+
 int BLELocalDevice::scanForUuid(String uuid, bool withDuplicates){return 0;}
+
 void BLELocalDevice::stopScan(){}
+
 BLEDevice BLELocalDevice::available(){return BLEDevice();}
 
 
 bool BLEDevice::connected() const{return false;}
+
 bool BLEDevice::disconnect(){return false;}
+
 String BLEDevice::localName() const {return "";}
+
 bool BLEDevice::connect(){return false;}
+
 bool BLEDevice::discoverAttributes(){return false;}
+
 BLEDevice::operator bool() const{return false;}
+
 BLECharacteristic BLEDevice::characteristic(const char * uuid) const{return BLECharacteristic();}
 
 

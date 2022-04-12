@@ -11,6 +11,7 @@ public:
 	//friend bool operator == (const String &a, const char   *b) { return a.equals(b); }
 	//friend bool operator == (const char   *a, const String &b) { return b == a; }
 
+
 	friend bool operator != (const String &a, const String &b) { return !(a == b); }
 	//friend bool operator != (const String &a, const char   *b) { return !(a == b); }
 	//friend bool operator != (const char   *a, const String &b) { return !(a == b); }
