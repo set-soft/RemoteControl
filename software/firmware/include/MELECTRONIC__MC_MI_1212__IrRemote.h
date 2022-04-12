@@ -12,6 +12,6 @@ namespace MELECTRONIC__MC_MI_1212{
 	typedef void (*InfraRed_off)();
 	typedef void (*WaitMicroseconds)(unsigned int microSeconds);
 
-	void init(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
-	void send(Command command);
+	extern void (*init)(const InfraRed_on infraRed_on, const InfraRed_off infraRed_off, const WaitMicroseconds waitUs);
+	extern void (*send)(Command command);
 }
