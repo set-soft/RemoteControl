@@ -8,9 +8,15 @@ int BLECharacteristic::writeValue(uint8_t value, bool withResponse){
 	return 0;
 }
 
-BLECharacteristic::operator bool() const{return false;}
+BLECharacteristic::operator bool() const{
+	mock().actualCall("BLECharacteristic::operator bool");
+	return mock().returnBoolValueOrDefault(true);
+}
 
-bool BLECharacteristic::canWrite(){return false;}
+bool BLECharacteristic::canWrite(){
+	mock().actualCall("BLECharacteristic::canWrite");
+	return mock().returnBoolValueOrDefault(true);
+}
 
 
 int BLELocalDevice::begin(){
@@ -20,26 +26,58 @@ int BLELocalDevice::begin(){
 
 void BLELocalDevice::end(){}
 
-int BLELocalDevice::scanForUuid(String uuid, bool withDuplicates){return 0;}
+int BLELocalDevice::scanForUuid(String uuid, bool withDuplicates){
+	mock().actualCall("BLELocalDevice::scanForUuid")
+		.withStringParameter("uuid", uuid.c_str())
+		.withBoolParameter("withDuplicates", withDuplicates);
+	return 0;
+}
 
-void BLELocalDevice::stopScan(){}
+void BLELocalDevice::stopScan(){
+	mock().actualCall("BLELocalDevice::stopScan");
+}
 
-BLEDevice BLELocalDevice::available(){return BLEDevice();}
+BLEDevice BLELocalDevice::available(){
+	mock().actualCall("BLELocalDevice::available");
+	return BLEDevice();
+}
 
 
-bool BLEDevice::connected() const{return false;}
+bool BLEDevice::connected() const{
+	mock().actualCall("BLEDevice::connected");
+	return mock().returnBoolValueOrDefault(true);
+}
 
-bool BLEDevice::disconnect(){return false;}
+bool BLEDevice::disconnect(){
+	mock().actualCall("BLEDevice::disconnect");
+	return true;
+}
 
-String BLEDevice::localName() const {return "";}
+String BLEDevice::localName() const {
+	mock().actualCall("BLEDevice::localName");
+	return String(mock().returnStringValueOrDefault("TurnTable"));
+}
 
-bool BLEDevice::connect(){return false;}
+bool BLEDevice::connect(){
+	mock().actualCall("BLEDevice::connect");
+	return mock().returnBoolValueOrDefault(true);
+}
 
-bool BLEDevice::discoverAttributes(){return false;}
+bool BLEDevice::discoverAttributes(){
+	mock().actualCall("BLEDevice::discoverAttributes");
+	return mock().returnBoolValueOrDefault(true);
+}
 
-BLEDevice::operator bool() const{return false;}
+BLEDevice::operator bool() const{
+	mock().actualCall("BLEDevice::operator bool");
+	return mock().returnBoolValueOrDefault(true);
+}
 
-BLECharacteristic BLEDevice::characteristic(const char * uuid) const{return BLECharacteristic();}
+BLECharacteristic BLEDevice::characteristic(const char * uuid) const{
+	mock().actualCall("BLEDevice::characteristic")
+		.withStringParameter("uuid", uuid);
+	return BLECharacteristic();
+}
 
 
 BLELocalDevice BLEObj;
