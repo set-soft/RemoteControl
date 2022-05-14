@@ -181,3 +181,19 @@ TEST(turnTable_test, sendInvalidCommand){
 	using namespace turnTable;
 	sendCommand((Command)123);
 }
+
+TEST(turnTable_test, isConnected_false){
+	mock().ignoreOtherCalls();
+	turnTable::init();
+	CHECK_FALSE(turnTable::isConnected());
+}
+
+TEST(turnTable_test, isConnected_true){
+	enterState_Connected();
+	CHECK(turnTable::isConnected());
+}
+
+TEST(turnTable_test, disconnect){
+	mock().expectOneCall("BLEDevice::disconnect");
+	turnTable::disconnect();
+}

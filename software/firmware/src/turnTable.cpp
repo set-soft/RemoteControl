@@ -92,4 +92,14 @@ namespace turnTable{
 		}
 	}
 	void (*sendCommand)(Command command) = sendCommand_Implementation;
+
+	static bool isConnected_Implementation(){
+		return state == State::Connected;
+	}
+	bool (*isConnected)() = isConnected_Implementation;
+
+	void disconnect_Implementation(){
+		peripheral.disconnect();
+	}
+	void (*disconnect)() = disconnect_Implementation;
 }
