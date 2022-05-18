@@ -1,28 +1,25 @@
-$fn = 90;
+$fn = 360;
 
-wallThickness = 2;
-length = 140;
-width = 60;
-height = 20;
-difference(){
-	baseShape(length, width, height);
-	translate([0, 0, wallThickness/2])
-		#baseShape(length-2*wallThickness, width-2*wallThickness, height-wallThickness);
-}
+width = 45;
+length = 3*width;
+height = 17;
 
-module baseShape(length, width, height){
-	hull(){
-		radius = 10 - (60-width)/2;
-		xAbs = length/2 - radius;
-		yAbs = width/2 - radius;
-		for(x = [-xAbs, xAbs]){
-			for(y = [-yAbs, yAbs]){
-				translate([x, y, 0]){
-					sphere(r=radius);
-					translate([0, 0, radius/2])
-						cylinder(r=radius, h=height-radius, center=true);
-				}
-			}
+radius = 1;
+minkowski(){
+	resize([length-2*radius, width-2*radius, height-2*radius]){
+		intersection(){
+			cube([length, width, height], center=true);
+
+			resize([2*length, width, 3*height])
+				translate([0, 0, 0])
+					rotate([0, 90, 0])
+						cylinder(center=true);
+			
+			
+			resize([length, 3*width, 3*height])
+				translate([0, 0, 0])
+					cylinder(center=true);
 		}
 	}
+	sphere(r=radius);
 }
