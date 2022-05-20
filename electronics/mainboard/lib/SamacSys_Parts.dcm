@@ -1,0 +1,15 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP 1022
+D Cylindrical Battery Contacts, Clips, Holders & Springs "AAA" DUAL SMT battery holder
+K
+F http://www.keyelco.com/product-pdf.cfm?p=935
+$ENDCMP
+#
+#End Doc Library
