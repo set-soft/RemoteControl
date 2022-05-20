@@ -1,5 +1,4 @@
 include <case_parameters.scad>
-use <mainboard_outline.scad>
 
 $fn = 90;
 pcb_thickness = 1.6;
@@ -17,7 +16,8 @@ pcb_thickness = 1.6;
 }
 
 translate([0, 0, -case_height/2 + case_wallThickness + 1.5]){
-	mainboard_outline();
+	rotate([0, 0, 90])
+		import ("/../electronics/mainboard/mainboard.stl");
 }
 
 
