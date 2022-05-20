@@ -363,10 +363,10 @@
   },
   "pcbnew": {
     "last_paths": {
-      "gencad": "",
+      "gencad": "mainboard.cad",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "",
+      "specctra_dsn": "mainboard.dsn",
       "step": "mainboard.step",
       "vrml": ""
     },
