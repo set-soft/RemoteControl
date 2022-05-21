@@ -13,7 +13,7 @@ pcb_thickness = 1.6;
 	//debug
 }
 
-translate([0, 0, -case_height/2 + case_wallThickness + pcb_bottomClearance]){
+translate([-1.5, 0, -case_height/2 + case_wallThickness + pcb_bottomClearance]){
 	rotate([0, 0, -90])
 		import ("../electronics/mainboard/mainboard.stl");
 }
