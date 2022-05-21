@@ -1,18 +1,13 @@
-include <case_parameters.scad>
+include <parameters.scad>
 
 $fn = 90;
-pcb_thickness = 1.6;
 
 case();
 
 module case(){
 	difference(){
 		case_base();
-		translate([-1.5, 0, 0]){
-			resize([case_length-3-2*case_wallThickness, case_width-2*case_wallThickness, case_height-2*case_wallThickness]){
-				case_base();
-			}
-		}
+		case_inner();
 		translate([case_length/2, 0, 0])
 			rotate([0, -90, 0])
 				cylinder(d=5, h=20);
@@ -41,5 +36,14 @@ module case_base(){
 			}
 		}
 		sphere(r=radius);
+	}
+}
+
+
+module case_inner(){
+	translate([-1.5, 0, 0]){
+		resize([case_innerLength, case_innerWidth, case_innerHeight]){
+			case_base();
+		}
 	}
 }
