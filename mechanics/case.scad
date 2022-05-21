@@ -3,21 +3,23 @@ include <case_parameters.scad>
 $fn = 90;
 pcb_thickness = 1.6;
 
-#difference(){
-	case_base();
-	resize([case_length-2*case_wallThickness, case_width-2*case_wallThickness, case_height-2*case_wallThickness]){
-		case_base();
-	}
-	//debug
-	translate([0, 0, case_height/2]){
-		cube([case_length+1, case_width+1, case_height], center = true);
-	}
-	//debug
-}
+case();
 
-translate([0, 0, -case_height/2 + case_wallThickness + 1.5]){
-	rotate([0, 0, 90])
-		import ("/../electronics/mainboard/mainboard.stl");
+module case(){
+	difference(){
+		case_base();
+		translate([-1.5, 0, 0]){
+			resize([case_length-3-2*case_wallThickness, case_width-2*case_wallThickness, case_height-2*case_wallThickness]){
+				case_base();
+			}
+		}
+		translate([case_length/2, 0, 0])
+			rotate([0, -90, 0])
+				cylinder(d=5, h=20);
+		translate([case_length/2+3, 0, 0])
+			rotate([90, 0, 0])
+				cylinder(d=12, h=case_width, center=true);
+	}
 }
 
 
