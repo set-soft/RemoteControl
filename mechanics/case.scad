@@ -5,9 +5,10 @@ $fn = 90;
 //debug
 difference(){
 	case();
-	translate([0, 0, case_height/2]){
+
+	/*translate([0, 0, case_height/2]){
 		cube([case_length+1, case_width+1, case_height], center = true);
-	}
+	}*/
 }
 //debug
 
@@ -16,6 +17,7 @@ module case(){
 		case_base();
 		case_inner();
 		led_hole();
+		button_holes();
 	}
 	pcb_bottomSupport();
 	pcb_positionPole();
@@ -77,4 +79,14 @@ module pcb_bottomSupport(){
 module pcb_positionPole(){
 	translate([-10, -12, -case_height/2+case_wallThickness+pcb_bottomClearance])
 		cylinder(d1=3, d2=2.5, h=3*pcb_thickness);
+}
+
+module button_holes(){
+	for(x = [-24, -12, 0, 12, 24]){
+		for(y = [-12, 0, 12]){
+			#translate([x+29.3, y, case_height/2]){
+				cylinder(d=8, h=3*case_wallThickness, center=true);
+			}
+		}
+	}
 }
