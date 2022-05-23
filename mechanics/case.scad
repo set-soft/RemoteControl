@@ -18,6 +18,7 @@ module case(){
 		led_hole();
 	}
 	pcb_bottomSupport();
+	pcb_positionPole();
 }
 
 
@@ -71,4 +72,9 @@ module pcb_bottomSupport(){
 	
 	translate([-34, -12, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
 		cube([65, 10, pcb_bottomClearance], center=true);
+}
+
+module pcb_positionPole(){
+	translate([-10, -12, -case_height/2+case_wallThickness+pcb_bottomClearance])
+		cylinder(d1=3, d2=2.5, h=3*pcb_thickness);
 }
