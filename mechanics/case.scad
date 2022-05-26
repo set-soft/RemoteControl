@@ -2,15 +2,38 @@ include <parameters.scad>
 
 $fn = 90;
 
-//debug
-difference(){
-	case();
+case_upper();
+translate([0, 0, -50])
+	case_lower();
 
-	/*translate([0, 0, case_height/2]){
-		cube([case_length+1, case_width+1, case_height], center = true);
-	}*/
+translate([-40, 0, 0])
+case_backRing();
+
+
+module case_upper(){
+	difference(){
+		case();
+		translate([0, 0, -case_height/2])
+			cube([case_length+1, case_width+1, case_height], center=true);
+	}
+
+	//lower frame
+	difference(){
+		case_inner();
+		resize([case_innerLength-1, case_innerWidth-1, case_innerHeight+1])
+			case_inner();
+		translate([0, 0, -case_height/2-1])
+			cube([case_length+1, case_width+1, case_height], center=true);
+	}
 }
-//debug
+
+module case_lower(){
+	difference(){
+		case();
+		translate([0, 0, case_height/2])
+			cube([case_length+1, case_width+1, case_height], center=true);
+	}
+}
 
 module case(){
 	difference(){
@@ -18,11 +41,12 @@ module case(){
 		case_inner();
 		led_hole();
 		button_holes();
+		scale([1.001,1.001,1.001]) //workaround to make the groove visible
+			case_backRing();
 	}
 	pcb_bottomSupport();
 	pcb_positionPole();
 }
-
 
 module case_base(){
 	radius = 1;
@@ -44,7 +68,6 @@ module case_base(){
 		sphere(r=radius);
 	}
 }
-
 
 module case_inner(){
 	translate([-1.5, 0, 0]){
@@ -70,7 +93,7 @@ module pcb_bottomSupport(){
 	}
 	
 	translate([-34, 10, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
-		cube([65, 25, pcb_bottomClearance], center=true);
+		cube([65, 24, pcb_bottomClearance], center=true);
 	
 	translate([-34, -12, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
 		cube([65, 10, pcb_bottomClearance], center=true);
@@ -84,9 +107,23 @@ module pcb_positionPole(){
 module button_holes(){
 	for(x = [-24, -12, 0, 12, 24]){
 		for(y = [-12, 0, 12]){
-			#translate([x+29.3, y, case_height/2]){
+			translate([x+29.3, y, case_height/2]){
 				cylinder(d=8, h=3*case_wallThickness, center=true);
 			}
+		}
+	}
+}
+
+module case_backRing(){
+	intersection(){
+		difference(){
+			case_base();
+			resize([case_length, case_width-case_wallThickness, case_height-case_wallThickness]){
+				case_base();
+			}
+		}
+		translate([-50, 0, 0]){
+			cube([15, case_width+1, case_height+1], center=true);
 		}
 	}
 }
