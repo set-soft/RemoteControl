@@ -1,6 +1,6 @@
 include <parameters.scad>
 
-$fn = 90;
+$fn = $preview ? 45 : 180;
 
 case_upper();
 translate([0, 0, -50])
@@ -14,15 +14,6 @@ module case_upper(){
 	difference(){
 		case();
 		translate([0, 0, -case_height/2])
-			cube([case_length+1, case_width+1, case_height], center=true);
-	}
-
-	//lower frame
-	difference(){
-		case_inner();
-		resize([case_innerLength-1, case_innerWidth-1, case_innerHeight+1])
-			case_inner();
-		translate([0, 0, -case_height/2-1])
 			cube([case_length+1, case_width+1, case_height], center=true);
 	}
 }
@@ -43,6 +34,7 @@ module case(){
 		button_holes();
 		scale([1.001,1.001,1.001]) //workaround to make the groove visible
 			case_backRing();
+		case_positioningSlits();
 	}
 	pcb_bottomSupport();
 	pcb_positionPole();
@@ -70,7 +62,7 @@ module case_base(){
 }
 
 module case_inner(){
-	translate([-1.5, 0, 0]){
+	translate([-0.5, 0, 0]){
 		resize([case_innerLength, case_innerWidth, case_innerHeight]){
 			case_base();
 		}
@@ -89,18 +81,18 @@ module led_hole(){
 module pcb_bottomSupport(){
 	for(y = [-18, -6, 6, 18]){
 		translate([33, y, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
-			cube([70, 1, pcb_bottomClearance], center=true);
+			cube([60, 1, pcb_bottomClearance], center=true);
 	}
 	
-	translate([-34, 10, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
+	translate([-33, 10, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
 		cube([65, 24, pcb_bottomClearance], center=true);
 	
-	translate([-34, -12, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
+	translate([-33, -12, -case_height/2+case_wallThickness+pcb_bottomClearance/2])
 		cube([65, 10, pcb_bottomClearance], center=true);
 }
 
 module pcb_positionPole(){
-	translate([-10, -12, -case_height/2+case_wallThickness+pcb_bottomClearance])
+	translate([-9, -12, -case_height/2+case_wallThickness+pcb_bottomClearance])
 		cylinder(d1=3, d2=2.5, h=3*pcb_thickness);
 }
 
@@ -125,5 +117,19 @@ module case_backRing(){
 		translate([-50, 0, 0]){
 			cube([15, case_width+1, case_height+1], center=true);
 		}
+	}
+}
+
+module case_positioningSlits(){
+	angleAbs = 15;
+	for(angle = [-angleAbs, angleAbs]){
+		//front
+		rotate([0, 0, angle])
+			translate([case_length/2-3, 0, 0])
+				cube([1, 9, case_height-4*case_wallThickness], center=true);
+		//back
+		rotate([0, 0, angle])
+			translate([-case_length/2+2, 0, 0])
+				cube([1, 9, case_height-4*case_wallThickness], center=true);
 	}
 }
