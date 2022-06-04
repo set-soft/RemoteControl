@@ -1,13 +1,10 @@
 include <parameters.scad>
 
-$fn = $preview ? 45 : 180;
+$fn = $preview ? 60: 360;
 
 case_upper();
 translate([0, 0, -50])
 	case_lower();
-
-translate([-40, 0, 0])
-case_backRing();
 
 
 module case_upper(){
@@ -16,6 +13,7 @@ module case_upper(){
 		translate([0, 0, -case_height/2])
 			cube([case_length+1, case_width+1, case_height], center=true);
 	}
+	case_mountingLevers();
 }
 
 module case_lower(){
@@ -23,6 +21,7 @@ module case_lower(){
 		case();
 		translate([0, 0, case_height/2])
 			cube([case_length+1, case_width+1, case_height], center=true);
+		case_mountingPits();
 	}
 }
 
@@ -32,32 +31,23 @@ module case(){
 		case_inner();
 		led_hole();
 		button_holes();
-		scale([1.001,1.001,1.001]) //workaround to make the groove visible
-			case_backRing();
-		case_positioningSlits();
 	}
 	pcb_bottomSupport();
 	pcb_positionPole();
 }
 
 module case_base(){
-	radius = 1;
-	minkowski(){
-		resize([case_length-2*radius, case_width-2*radius, case_height-2*radius]){
-			intersection(){
-				cube([case_length, case_width, case_height], center=true);
+	intersection(){
+		cube([case_length, case_width, case_height], center=true);
 
-				resize([2*case_length, case_width, 3*case_height])
-					translate([0, 0, 0])
-						rotate([0, 90, 0])
-							cylinder(center=true);
-				
-				resize([case_length, 3*case_width, 3*case_height])
-					translate([0, 0, 0])
-						cylinder(center=true);
-			}
-		}
-		sphere(r=radius);
+		resize([2*case_length, case_width, 3*case_height])
+			translate([0, 0, 0])
+				rotate([0, 90, 0])
+					cylinder(center=true);
+
+		resize([case_length, 3*case_width, 3*case_height])
+			translate([0, 0, 0])
+				cylinder(center=true);
 	}
 }
 
@@ -106,30 +96,55 @@ module button_holes(){
 	}
 }
 
-module case_backRing(){
-	intersection(){
-		difference(){
-			case_base();
-			resize([case_length, case_width-case_wallThickness, case_height-case_wallThickness]){
-				case_base();
-			}
-		}
-		translate([-50, 0, 0]){
-			cube([15, case_width+1, case_height+1], center=true);
-		}
+module case_mountingPits(){
+	angleAbs = 12;
+	diameter = 2;
+	length = 8;
+	for(angle = [-angleAbs, angleAbs]){
+		rotate([90, 0, angle])
+			translate([case_length/2-4.7, -3, 0])
+				cylinder(d=diameter, h=length, center=true);
+	}
+
+	rotate([90, 0, 0])
+		translate([-case_length/2+3.7, -3, 0])
+			cylinder(d=diameter, h=length, center=true);
+
+	yAbs = case_width/2-1.7;
+	for(y = [-yAbs, yAbs]){
+		translate([0, y, -3])
+			rotate([90, 0, 90])
+				cylinder(d=diameter, h=length, center=true);
 	}
 }
 
-module case_positioningSlits(){
-	angleAbs = 15;
+module case_mountingLevers(){
+	angleAbs = 12;
+	diameter = 2;
+	length = 7;
 	for(angle = [-angleAbs, angleAbs]){
-		//front
-		rotate([0, 0, angle])
-			translate([case_length/2-3, 0, 0])
-				cube([1, 9, case_height-4*case_wallThickness], center=true);
-		//back
-		rotate([0, 0, angle])
-			translate([-case_length/2+2, 0, 0])
-				cube([1, 9, case_height-4*case_wallThickness], center=true);
+		rotate([90, 0, angle])
+			translate([case_length/2-4.7, -3, 0]){
+				cylinder(d=diameter, h=length, center=true);
+				translate([-diameter/8, 6, 0])
+					cube([diameter/4*3, 12, length], center=true);
+			}
+	}
+
+	rotate([90, 0, 0])
+		translate([-case_length/2+3.7, -3, 0]){
+			cylinder(d=diameter, h=length, center=true);
+			translate([diameter/8, 6, 0])
+				cube([diameter/4*3, 12, length], center=true);
+		}
+
+	yAbs = case_width/2-1.7;
+	for(y = [-yAbs, yAbs]){
+		translate([0, y, -3])
+			rotate([90, 0, 90]){
+				cylinder(d=diameter, h=length, center=true);
+				translate([-sign(y)*diameter/8, 5.5, 0])
+					cube([diameter/4*3, 11, length], center=true);
+			}
 	}
 }
