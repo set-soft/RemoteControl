@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "SamacSys")(type "Legacy")(uri "${KIPRJMOD}/lib/SamacSys/SamacSys_Parts.lib")(options "")(descr ""))
+  (lib (name "TSM250N02CX_RFG")(type "Legacy")(uri "${KIPRJMOD}/lib/TSM250N02CX_RFG/TSM250N02CX_RFG.lib")(options "")(descr ""))
+)

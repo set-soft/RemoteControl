@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "SamacSys")(type "KiCad")(uri "${KIPRJMOD}/lib/SamacSys/SamacSys_Parts.pretty")(options "")(descr ""))
+  (lib (name "TSM250N02CX_RFG")(type "KiCad")(uri "${KIPRJMOD}/lib/TSM250N02CX_RFG")(options "")(descr ""))
+)
