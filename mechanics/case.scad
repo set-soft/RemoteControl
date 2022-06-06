@@ -89,7 +89,7 @@ module pcb_positionPole(){
 module button_holes(){
 	for(x = [-24, -12, 0, 12, 24]){
 		for(y = [-12, 0, 12]){
-			translate([x+29.3, y, case_height/2]){
+			translate([x+30.2, y, case_height/2]){
 				cylinder(d=8, h=3*case_wallThickness, center=true);
 			}
 		}

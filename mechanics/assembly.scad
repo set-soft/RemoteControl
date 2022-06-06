@@ -1,13 +1,16 @@
 use <case.scad>
+use <buttons.scad>
 include <parameters.scad>
 
 case_lower();
 pcb();
-/*
+
 translate([0, 0, 100]){
 	case_upper();
 	pcb();
-}*/
+	translate([30.2, 0, 5.45])
+		buttons();
+}
 
 
 
