@@ -1311,7 +1311,7 @@
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 7bc4d422-ec63-4bcc-89be-3eac726fdba7)
     )
-    (fp_text value "Arduino_Nano_v3.x" (at 8.89 15.24 90) (layer "F.Fab")
+    (fp_text value "Arduino_Nano_33_BLE" (at 8.89 15.24 90) (layer "F.Fab")
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp e45ee289-0e09-4fb1-8e60-b9936eece8bf)
     )
