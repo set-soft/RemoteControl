@@ -75,6 +75,9 @@
     )
   )
 
+  (property "GIT-COMMIT-HASH" "1234")
+  (property "GIT-COMMIT-TAG" "<GIT-COMMIT-TAG>")
+
   (net 0 "")
   (net 1 "unconnected-(A1-Pad3)")
   (net 2 "unconnected-(A1-Pad18)")
@@ -476,7 +479,7 @@
     (property "Sheetname" "")
     (path "/59142adb-6887-41fc-851e-9a7f51511d60")
     (attr through_hole)
-    (fp_text reference "U1" (at 10.16 0 90) (layer "F.SilkS")
+    (fp_text reference "U1" (at -28.9613 0 180) (layer "F.SilkS")
       (effects (font (size 1.27 1.27) (thickness 0.254)))
       (tstamp f959907b-1cef-4760-b043-4260a660a2ae)
     )
@@ -1270,7 +1273,7 @@
     (property "Sheetname" "")
     (path "/d6fd490f-2f60-4a9e-914d-f916be15ed91")
     (attr exclude_from_pos_files)
-    (fp_text reference "JP1" (at 0 1.905 270 unlocked) (layer "F.SilkS")
+    (fp_text reference "JP1" (at 0 2.54 unlocked) (layer "F.SilkS")
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 57e0775c-b0fe-43fa-9512-19fc75c3508c)
     )
