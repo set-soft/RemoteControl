@@ -22,6 +22,7 @@ jobs:
     - uses: INTI-CMNB/KiBot@v2_k6
       with:
         quickstart: YES
+        verbose: 3
         
     - name: Retrieve results
       uses: actions/upload-artifact@v3
