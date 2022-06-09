@@ -15,17 +15,15 @@ on:
 jobs:
   generate_fabrication_outputs:
     runs-on: ubuntu-18.04
-    container: setsoft/kicad_auto:ki6
 
     steps:
     - uses: actions/checkout@v3
-
-    - name: Quick Start
-      run: |
-        kibot --quick-start
+    
+    - uses: INTI-CMNB/KiBot@v2_k6
+      with:
+        quickstart: YES
         
     - name: Retrieve results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: Automatic_outputs
-        path: Generated
+        path: electronics/mainboard/Fabrication/
