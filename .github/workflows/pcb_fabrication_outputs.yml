@@ -19,7 +19,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - uses: INTI-CMNB/KiBot@v2_k6
+    # Use the v2_dk6 tag instead of v2_k6 at least until a new release is done.
+    # see: https://github.com/INTI-CMNB/KiBot/issues/206
+    - uses: INTI-CMNB/KiBot@v2_dk6
       with:
         quickstart: YES
         verbose: 3
