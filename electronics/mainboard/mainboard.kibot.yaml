@@ -11,7 +11,7 @@ preflight:
     - variable: 'GIT-COMMIT-HASH'
       command: 'git rev-parse --short HEAD'
       
-output:
+outputs:
   - name: 'gerbers'
     type: gerber
   - name: 'drill files'
