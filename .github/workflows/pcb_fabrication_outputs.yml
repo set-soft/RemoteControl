@@ -25,6 +25,8 @@ jobs:
       with:
         config: electronics/mainboard/mainboard.kibot.yaml
         dir: kibot_output
+        schema: electronics/mainboard/mainboard.kicad_sch
+        board: electronics/mainboard/mainboard.kicad_pcb
         
     - name: upload results
       uses: actions/upload-artifact@v3
