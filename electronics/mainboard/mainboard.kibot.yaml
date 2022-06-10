@@ -1,0 +1,7 @@
+kibot:
+  version: 1
+  
+preflight:
+  erc_warnings: true
+  run_erc: true
+  run_drc: true
