@@ -24,9 +24,9 @@ jobs:
     - uses: INTI-CMNB/KiBot@v2_dk6
       with:
         quickstart: YES
-        verbose: 3
         
-    - name: Retrieve results
+    - name: upload results
       uses: actions/upload-artifact@v3
       with:
-        path: electronics/mainboard/Fabrication/
+        name: Automatic_outputs
+        path: Generated
