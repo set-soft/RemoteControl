@@ -17,6 +17,7 @@ outputs:
     layers:
       - 'F.Cu'
       - 'B.Cu'
+      - 'F.Silkscreen'
       
   - name: 'drill files'
     type: excellon
