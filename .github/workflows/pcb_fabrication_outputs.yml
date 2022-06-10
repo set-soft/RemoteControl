@@ -23,10 +23,11 @@ jobs:
     # see: https://github.com/INTI-CMNB/KiBot/issues/206
     - uses: INTI-CMNB/KiBot@v2_dk6
       with:
-        quickstart: YES
+        config: electronics/mainboard/mainboard.kibot.yaml
+        dir: kibot_output
         
     - name: upload results
       uses: actions/upload-artifact@v3
       with:
-        name: Automatic_outputs
-        path: Generated
+        name: kibot_output
+        path: kibot_output
