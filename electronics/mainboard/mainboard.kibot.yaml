@@ -14,9 +14,15 @@ preflight:
 outputs:
   - name: 'gerbers'
     type: gerber
+    layers:
+      - 'F.Cu'
+      - 'B.Cu'
+      
   - name: 'drill files'
     type: excellon
+    
   - name: 'schematic documentation'
     type: pdf_sch_print
+    
   - name: 'pcb documentation'
     type: pdf_pcb_print
