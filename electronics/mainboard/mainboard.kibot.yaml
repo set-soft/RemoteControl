@@ -20,6 +20,7 @@ outputs:
       - 'F.Paste'
       - 'F.Silkscreen'
       - 'F.Mask'
+      - 'B.Mask'
       - 'Edge.Cuts'
       
   - name: 'drill files'
