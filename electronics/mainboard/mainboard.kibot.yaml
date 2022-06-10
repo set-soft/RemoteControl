@@ -5,3 +5,8 @@ preflight:
   erc_warnings: true
   run_erc: true
   run_drc: true
+  set_text_variables:
+    - variable: 'GIT-COMMIT-TAG'
+      command: 'git tag'
+    - variable: 'GIT-COMMIT-HASH'
+      command: 'git rev-parse --short HEAD'
