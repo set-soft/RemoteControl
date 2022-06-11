@@ -32,6 +32,4 @@ outputs:
   - name: 'pcb documentation'
     type: pdf_pcb_print
     layers:
-      - 'F.Cu'
-      - 'B.Cu'
       - 'F.Silkscreen'
