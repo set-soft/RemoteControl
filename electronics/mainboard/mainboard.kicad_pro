@@ -383,7 +383,7 @@
       "step": "mainboard.step",
       "vrml": ""
     },
-    "page_layout_descr_file": ""
+    "page_layout_descr_file": "mainboard.kicad_wks"
   },
   "schematic": {
     "annotate_start_num": 0,
@@ -416,7 +416,7 @@
       "model_mode": 0,
       "workbook_filename": ""
     },
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "mainboard.kicad_wks",
     "plot_directory": "",
     "spice_adjust_passive_values": false,
     "spice_external_command": "spice \"%I\"",
