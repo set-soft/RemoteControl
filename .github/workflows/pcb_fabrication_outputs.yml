@@ -27,6 +27,7 @@ jobs:
         dir: kibot_output
         schema: electronics/mainboard/mainboard.kicad_sch
         board: electronics/mainboard/mainboard.kicad_pcb
+        verbose: 4
 
     - name: upload results
       uses: actions/upload-artifact@v3
