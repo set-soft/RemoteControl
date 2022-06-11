@@ -6,6 +6,10 @@
 
   (title_block
     (title "Mainboard")
+    (comment 6 "${PROJECT}")
+    (comment 7 "${PROJECT-URL}")
+    (comment 8 "${GIT-COMMIT-TAG}")
+    (comment 9 "${GIT-COMMIT-HASH}")
   )
 
   (lib_symbols
