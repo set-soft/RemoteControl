@@ -94,6 +94,8 @@
 
   (property "GIT-COMMIT-HASH" "noHash")
   (property "GIT-COMMIT-TAG" "noTag")
+  (property "PROJECT" "Remote Control - Mainboard")
+  (property "PROJECT-URL" "https://github.com/erichstuder/RemoteControl")
 
   (net 0 "")
   (net 1 "unconnected-(A1-Pad3)")
@@ -1951,7 +1953,7 @@
   (gr_line (start 121.5661 122.4074) (end 121.5429 122.3953) (layer "Edge.Cuts") (width 0.2) (tstamp fcdd0754-ccbe-4e49-9cb4-ed7588bfc1bb))
   (gr_line (start 121.3867 122.2996) (end 121.3654 122.2844) (layer "Edge.Cuts") (width 0.2) (tstamp fcfaa285-c901-4f03-ae19-f3c9728a1245))
   (gr_line (start 122.2994 119.5718) (end 122.3256 119.57294) (layer "Edge.Cuts") (width 0.2) (tstamp ffd3e4a5-55a7-44bd-8520-e6057a727415))
-  (gr_text "Remote Control - Mainboard\nhttps://github.com/erichstuder/RemoteControl\ntag: ${GIT-COMMIT-TAG} | commit: ${GIT-COMMIT-HASH}" (at 91.1971 95.4987 90) (layer "F.SilkS") (tstamp 338b7824-6fa7-42ef-b79a-c6dc90689f4e)
+  (gr_text "${PROJECT}\n${PROJECT-URL}\ntag: ${GIT-COMMIT-TAG} | commit: ${GIT-COMMIT-HASH}" (at 91.1971 95.4987 90) (layer "F.SilkS") (tstamp 338b7824-6fa7-42ef-b79a-c6dc90689f4e)
     (effects (font (size 1 1) (thickness 0.15)) (justify left))
   )
 
