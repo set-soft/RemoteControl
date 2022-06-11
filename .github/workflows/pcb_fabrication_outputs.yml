@@ -28,6 +28,12 @@ jobs:
         schema: electronics/mainboard/mainboard.kicad_sch
         board: electronics/mainboard/mainboard.kicad_pcb
         
+    - name: document used tools
+      run: |
+        echo used tools: > used_tools
+        kibot --version >> used_tools
+        
+        
     - name: upload results
       uses: actions/upload-artifact@v3
       with:
